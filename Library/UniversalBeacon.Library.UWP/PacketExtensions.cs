@@ -1,4 +1,10 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿// Copyright 2015 - 2019 Andreas Jakl, Chris Tacke and Contributors. All rights reserved. 
+// https://github.com/andijakl/universal-beacon 
+// 
+// This code is licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Bluetooth.Advertisement;
 using UniversalBeacon.Library.Core.Interop;
 
@@ -27,25 +33,25 @@ namespace UniversalBeacon.Library.UWP
         }
 
         /// <summary>
-        /// Convert the Windows specific Bluetooth LE advertisment to the universal cross-platform structure
+        /// Convert the Windows specific Bluetooth LE advertisement to the universal cross-platform structure
         /// used by the Universal Beacon Library.
         /// </summary>
-        /// <param name="convertBleAdvertisment">Windows Bluetooth LE advertisment to convert to cross-platform format.</param>
+        /// <param name="convertBleAdvertisement">Windows Bluetooth LE advertisement to convert to cross-platform format.</param>
         /// <returns>Packet converted to cross-platform format.</returns>
-        public static BLEAdvertisement ToUniversalAdvertisement(this BluetoothLEAdvertisement convertBleAdvertisment)
+        public static BLEAdvertisement ToUniversalAdvertisement(this BluetoothLEAdvertisement convertBleAdvertisement)
         {
-            if (convertBleAdvertisment == null) return null;
+            if (convertBleAdvertisement == null) return null;
 
             var result = new BLEAdvertisement
             {
-                LocalName = convertBleAdvertisment.LocalName
+                LocalName = convertBleAdvertisement.LocalName
             };
 
-            result.ServiceUuids.AddRange(convertBleAdvertisment.ServiceUuids);
+            result.ServiceUuids.AddRange(convertBleAdvertisement.ServiceUuids);
 
-            if (convertBleAdvertisment.DataSections != null)
+            if (convertBleAdvertisement.DataSections != null)
             {
-                foreach (var curDataSection in convertBleAdvertisment.DataSections)
+                foreach (var curDataSection in convertBleAdvertisement.DataSections)
                 {
                     var data = new BLEAdvertisementDataSection
                     {
@@ -57,9 +63,9 @@ namespace UniversalBeacon.Library.UWP
                 }
             }
 
-            if (convertBleAdvertisment.ManufacturerData != null)
+            if (convertBleAdvertisement.ManufacturerData != null)
             {
-                foreach (var curManufacturerData in convertBleAdvertisment.ManufacturerData)
+                foreach (var curManufacturerData in convertBleAdvertisement.ManufacturerData)
                 {
                     var data = new BLEManufacturerData
                     {

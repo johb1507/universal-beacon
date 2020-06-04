@@ -1,4 +1,10 @@
-﻿using OpenNETCF.IoC;
+﻿// Copyright 2015 - 2019 Andreas Jakl, Chris Tacke and Contributors. All rights reserved. 
+// https://github.com/andijakl/universal-beacon 
+// 
+// This code is licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using OpenNETCF.IoC;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,7 +22,18 @@ namespace UniversalBeacon.Sample.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private BeaconService _service;
+
+        //private ObservableCollection<Beacon> _beacons;
         public ObservableCollection<Beacon> Beacons => _service?.Beacons;
+        //{
+        //    get => _beacons;
+        //    set
+        //    {
+        //        _beacons = value;
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Beacons"));
+        //    }
+        //} // => _service?.Beacons;
+
         private Beacon _selectedBeacon;
         
         public async Task RequestPermissions()
@@ -27,8 +44,8 @@ namespace UniversalBeacon.Sample.ViewModels
         private async Task RequestLocationPermission()
         {
             // Actually coarse location would be enough, the plug-in only provides a way to request fine location
-            var requestedPermissions = await CrossPermissions.Current.RequestPermissionsAsync(Plugin.Permissions.Abstractions.Permission.Location);
-            var requestedPermissionStatus = requestedPermissions[Plugin.Permissions.Abstractions.Permission.Location];
+            var requestedPermissions = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+            var requestedPermissionStatus = requestedPermissions[Permission.Location];
             Debug.WriteLine("Location permission status: " + requestedPermissionStatus);
             if (requestedPermissionStatus == PermissionStatus.Granted)
             {
@@ -43,7 +60,12 @@ namespace UniversalBeacon.Sample.ViewModels
             if (_service == null)
             {
                 _service = RootWorkItem.Services.AddNew<BeaconService>();
-                if (_service.Beacons != null) _service.Beacons.CollectionChanged += Beacons_CollectionChanged;
+                if (_service.Beacons != null)
+                {
+                    _service.Beacons.CollectionChanged += Beacons_CollectionChanged;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Beacons"));
+                    Debug.WriteLine("Beacon Service Initialized");
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 # Universal Bluetooth Beacon Library
 
-Manage Bluetooth® Beacons through a cross-platform .NET Standard library. Get details for the open Eddystone™ Bluetooth beacon format from Google, as well as beacons comparable to Apple® iBeacon™. Supported on all platforms that are compatible to .NET Standard 1.3+ - including Windows 10, Xamarin (iOS, Android), Mac and Linux.
+Manage Bluetooth® Beacons through a cross-platform .NET Standard library. Get details for the open Eddystone™ Bluetooth beacon format from Google, as well as beacons comparable to Apple® iBeacon™. Supported on all platforms that are compatible to .NET Standard 1.3/2.0+ - including Windows 10, Xamarin (iOS, Android), Mac and Linux.
 
 Directly use the received Bluetooth Low Energy Advertisement notifications from the base operating system and let the library take care of the rest for you. It extracts, combines and updates unique beacons, associated individual frames to the beacons and parses their contents - e.g., the beacon IDs, URLs or telemetry information like temperature or battery voltage.
 
@@ -87,6 +87,9 @@ To allow apps to receive data from Bluetooth Beacons, you have to ensure Windows
 2. Turn on Bluetooth: Settings -> Devices -> Bluetooth
 3. Turn on Device Sync: Settings -> Privacy -> Other devices -> Sync with devices (Example: beacons).
 
+### Bluetooth on Android
+
+Make sure that you activate Bluetooth on your Android device prior to running the example app. The app doesn't currently check if Bluetooth is active on your phone and you would otherwise get an exception about a missing "BLUETOOTH_PRIVILEGED" permission. This is unrelated to the actual Bluetooth Beacon library and just a small current limitation of the example.
 
 
 ## Usage example (C#)
@@ -165,7 +168,7 @@ public sealed partial class MainPage : Page
 
 ## Availability
 
-The Core Universal Beacon Library is available in C# for .NET Standard 1.3 - it is therefore compatible to Windows UWP, Xamarin (Android / iOS / UWP / Mac / Linux) and other platforms supported by .NET Standard. Extension libraries are currently included for UWP and Xamarin/Android to interface with the platform Bluetooth APIs.
+The Core Universal Beacon Library is available in C# for .NET Standard 2.0 - it is therefore compatible to Windows UWP, Xamarin (Android / iOS / UWP / Mac / Linux) and other platforms supported by .NET Standard. Extension libraries are currently included for UWP and Xamarin/Android to interface with the platform Bluetooth APIs.
 
 To keep up to date, either watch this project or [follow me on Twitter](https://twitter.com/andijakl).
 
@@ -187,6 +190,11 @@ To try the Xamarin (Android / UWP) or Windows 10 (UWP) example apps, download th
 
 
 ## Version History
+
+### 4.0.0 - March 2019
+* New library structure, adds support for Xamarin
+* Upgrade to .net Standard 2.0.
+* License change to MIT for the complete library
 
 ### 3.2.0 - August 2017
 * Add support for Eddystone EID frame type: https://github.com/google/eddystone/tree/master/eddystone-eid
